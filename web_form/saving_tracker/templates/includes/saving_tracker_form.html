@@ -1,0 +1,235 @@
+{% load user_filters %}
+{% include 'includes/form_error.html' %}
+<nav class="nav nav-tabs mb-2" id="nav-tab" role="tablist">
+    <a class="nav-link active"
+    id="nav-main-options-tab"
+    data-bs-toggle="tab"
+    href="#nav-main-options"
+    role="tab"
+    aria-controls="nav-main-options"
+    aria-selected="true">Основные параметры</a>
+    <a class="nav-link"
+    id="nav-split-tab"
+    data-bs-toggle="tab"
+    href="#nav-split"
+    role="tab"
+    aria-controls="nav-split"
+    aria-selected="false">Сплит</a>
+</nav>
+<div class="container-fluid px-1 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <form method="post"
+              enctype="multipart/form-data"
+              class="form-card"
+              {% if action_url %} action="{% url action_url.url action_url.param %}" {% endif %}>
+            {% csrf_token %}
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active"
+                     id="nav-main-options"
+                     role="tabpanel"
+                     aria-labelledby="nav-main-options-tab">
+                    <div class="row justify-content-between text-left ">
+                        <div class="form-group col-md-6 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="title" type="title" id="id_title" field=form.title value=form.title.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex justify-content-center">
+                            <div class="form-group d-flex">
+                                {{ form.local_focus }}
+                                <span class="fw-bold">{{ form.local_focus.label_tag }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex justify-content-center">
+                            <div class="d-flex">
+                                {{ form.budget_use }}
+                                <span class="fw-bold">{{ form.budget_use.label_tag }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex justify-content-center">
+                            <div class="d-flex">
+                                {{ form.approved }}
+                                <span class="fw-bold">{{ form.approved.label_tag }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="owner" type="select" id="id_owner" field=form.fields.owner value=form.owner.value error_field=form.owner %}
+                            {% include 'includes/form_field.html' with name="coordinator" type="select" id="id_coordinator" field=form.fields.coordinator value=form.coordinator.value error_field=form.coordinator %}
+                            {% include 'includes/form_field.html' with name="stream" type="select" id="id_stream" field=form.fields.stream value=form.stream.value error_field=form.stream %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="planned_start_date" type="date" id="id_planned_start_date" field=form.planned_start_date value=form.planned_start_date.value|date:"Y-m-d" %}
+                            {% include 'includes/form_field.html' with name="initial_start_date" type="date" id="id_initial_start_date" field=form.initial_start_date value=form.initial_start_date.value|date:"Y-m-d" %}
+                            {% include 'includes/form_field.html' with name="project_end_date" type="date" id="id_project_end_date" field=form.project_end_date value=form.project_end_date.value|date:"Y-m-d" %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="saving_potential" type="number" id="id_saving_potential" field=form.saving_potential value=form.saving_potential.value %}
+                            {% include 'includes/form_field.html' with name="saving_type" type="select" id="id_saving_type" field=form.fields.saving_type value=form.saving_type.value error_field=form.saving_type %}
+                            {% include 'includes/form_field.html' with name="losses_for_attack" type="select" id="id_losses_for_attack" field=form.fields.losses_for_attack value=form.losses_for_attack.value error_field=form.losses_for_attack %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="business_area" type="select" id="id_business_area" field=form.fields.business_area value=form.business_area.value error_field=form.business_area %}
+                            {% include 'includes/form_field.html' with name="support_function" type="select" id="id_support_function" field=form.fields.support_function value=form.support_function.value error_field=form.support_function %}
+                        </div>
+                        <div class="form-group col-md-3 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="high_level_status" type="select" id="id_high_level_status" field=form.fields.high_level_status value=form.high_level_status.value error_field=form.high_level_status %}
+                            {% include 'includes/form_field.html' with name="low_level_status" type="select" id="id_low_level_status" field=form.fields.low_level_status value=form.low_level_status.value error_field=form.low_level_status %}
+                            {% include 'includes/form_field.html' with name="risk_adjustment" type="select" id="id_risk_adjustment" field=form.fields.risk_adjustment value=form.risk_adjustment.value error_field=form.risk_adjustment %}
+                            {% include 'includes/form_field.html' with name="group" type="select" id="id_group" field=form.fields.group value=form.group.value error_field=form.group %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-md-6 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="comment" type="text" id="id_comment" field=form.comment value=form.comment.value %}
+                        </div>
+                        <div class="form-group col-md-6 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="folder_url" type="text" id="id_folder_url" field=form.folder_url value=form.folder_url.value %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade"
+                     id="nav-split"
+                     role="tabpanel"
+                     aria-labelledby="nav-split-tab">
+                    <div class="row justify-content-start text-left">
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="primary_share" type="number" id="id_primary_share" field=form.primary_share value=form.primary_share.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="secondary_share" type="number" id="id_secondary_share" field=form.secondary_share value=form.secondary_share.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="warehouse_share" type="number" id="id_warehouse_share" field=form.warehouse_share value=form.warehouse_share.value %}
+                        </div>
+                    </div>
+                    <div class="row justify-content-start text-left">
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="personal_care_share" type="number" id="id_personal_care_share" field=form.personal_care_share value=form.personal_care_share.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="home_care_share" type="number" id="id_home_care_share" field=form.home_care_share value=form.home_care_share.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="tea_share" type="number" id="id_tea_share" field=form.tea_share value=form.tea_share.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="food_share" type="number" id="id_food_share" field=form.food_share value=form.food_share.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="ic_share" type="number" id="id_ic_share" field=form.ic_share value=form.ic_share.value %}
+                        </div>
+                    </div>
+                    <div class="row justify-content-start text-left">
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2020" type="number" id="id_share_2020" field=form.share_2020 value=form.share_2020.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2021" type="number" id="id_share_2021" field=form.share_2021 value=form.share_2021.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2022" type="number" id="id_share_2022" field=form.share_2022 value=form.share_2022.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2023" type="number" id="id_share_2023" field=form.share_2023 value=form.share_2023.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2024" type="number" id="id_share_2024" field=form.share_2024 value=form.share_2024.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2025" type="number" id="id_share_2025" field=form.share_2025 value=form.share_2025.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2026" type="number" id="id_share_2026" field=form.share_2026 value=form.share_2026.value %}
+                        </div>
+                        <div class="form-group col-md-1 flex-column d-flex">
+                            {% include 'includes/form_field.html' with name="share_2027" type="number" id="id_share_2027" field=form.share_2027 value=form.share_2027.value %}
+                        </div>
+                        <div class="form-group col-md-2 flex-column d-flex justify-content-center">
+                            <button id="default_btn" type="button" class="btn btn-primary">Сплит по датам</button>
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-start text-left">
+                        <div class="form-group col-md-6 flex-column d-flex">
+                            <table class="table table-bordered border-2 ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Primary</th>
+                                        <th scope="col">Secondary</th>
+                                        <th scope="col">Warehouse</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="id_primary_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.primary_share.value }}</td>
+                                        <td id="id_secondary_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.secondary_share.value }}</td>
+                                        <td id="id_warehouse_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.warehouse_share.value }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group col-md-6 flex-column d-flex">
+                            <table class="table table-bordered border-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Personal Care</th>
+                                        <th scope="col">Home Care</th>
+                                        <th scope="col">Tea</th>
+                                        <th scope="col">Food</th>
+                                        <th scope="col">Ice Cream</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="id_personal_care_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.personal_care_share.value }}</td>
+                                        <td id="id_home_care_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.home_care_share.value }}</td>
+                                        <td id="id_tea_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.tea_share.value }}</td>
+                                        <td id="id_food_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.food_share.value }}</td>
+                                        <td id="id_ic_share_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.ic_share.value }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row justify-content-start text-left">
+                        <div class="form-group col-md-12 flex-column d-flex">
+                            <table class="table table-bordered border-2 ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">2020</th>
+                                        <th scope="col">2021</th>
+                                        <th scope="col">2022</th>
+                                        <th scope="col">2023</th>
+                                        <th scope="col">2024</th>
+                                        <th scope="col">2025</th>
+                                        <th scope="col">2026</th>
+                                        <th scope="col">2027</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="id_share_2020_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2020.value }}</td>
+                                        <td id="id_share_2021_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2021.value }}</td>
+                                        <td id="id_share_2022_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2022.value }}</td>
+                                        <td id="id_share_2023_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2023.value }}</td>
+                                        <td id="id_share_2024_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2024.value }}</td>
+                                        <td id="id_share_2025_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2025.value }}</td>
+                                        <td id="id_share_2026_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2026.value }}</td>
+                                        <td id="id_share_2027_cell" scope="row text-center">{{ form.saving_potential.value|multiply:form.share_2027.value }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row justify-content-start text-left">
+                        <div class="form-group col-md-2 flex-column d-flex">{% comment %} res {% endcomment %}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex col-md-12 justify-content-center ">
+                <button type="submit" class="btn btn-primary">{{ btn_label }}</button>
+            </div>
+        </form>
+    </div>

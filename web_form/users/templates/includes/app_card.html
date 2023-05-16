@@ -1,0 +1,12 @@
+<div class="d-flex col">
+    <div class="d-flex justify-content-between card text-white bg-success"
+         style="cursor: pointer"
+         onclick="window.location='{{ app.get_absolute_url }}';">
+        <div>
+            <div class="card-header">{{ app.title }}</div>
+            <div class="card-body">
+                <p class="card-text">{{ app.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>

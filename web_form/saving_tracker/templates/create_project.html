@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Создание проекта
+{% endblock title %}
+{% block more_scripts %}
+    <script type="text/javascript"
+            src="{% static 'js/count_default_shares.js' %}"></script>
+{% endblock more_scripts %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card bg-light">
+                <div class="card-body">{% include 'includes/saving_tracker_form.html' with btn_label='Сохранить' %}</div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
