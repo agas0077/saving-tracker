@@ -1,0 +1,14 @@
+SupportFunction;SavingType;HighLevelStatus;LowLevelStatus;Group;RiskAdjustment;LossesForAttack;BusinessArea;Stream;Approval
+Logistics;Hard;In progress;Project;Tender / Contracting;Low;Secondary utilization;IC;Ongoing;Approved
+Make;Soft;On hold;Idea;Collaboration;Medium;Primary utilization;CORE;Strategy;Approved in SRS
+CS;Cost avoidance;Done;Done;Fixed cost reduction;High;Loadfill;;;
+Planning;Virtual;Cancel;Planning;Primary rules;;Primary picking;;;
+CD;None;;;Network optimization;;Secondary picking;;;
+Procurement;Other;;;Transformation;;Slow movers;;;
+Various;;;;Automation;;NVAA;;;
+R&D;;;;Development;;No touch planning;;;
+Other;;;;Safety;;No touch reporting;;;
+;;;;Sustainability;;No touch analysis;;;
+;;;;;;Direct dispatched;;;
+;;;;;;Warehouse utilization;;;
+;;;;;;Others;;;

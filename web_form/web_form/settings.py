@@ -33,6 +33,10 @@ DEBUG = True if os.getenv('DEBUG') == 'True' else False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
                  'saving-tracker.andrey-agas-portfolio.website']
 
+CSRF_TRUSTED_ORIGINS = ['https://*.andrey-agas-portfolio.website',
+                        'https://*.127.0.0.1']
+
+
 AUTH_USER_MODEL = 'users.user'
 
 
