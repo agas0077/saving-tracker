@@ -48,8 +48,7 @@ def _send_change_email(form):
     Отправляет письмо координатору с указанимее изменений в проекте.
     '''
     
-    # recepient_email = form.cleaned_data['coordinator'].email
-    recepient_email = 'andrei.agasiants@unilever-rus.ru'
+    recepient_email = form.cleaned_data['coordinator'].email
 
     recepient_name = form.cleaned_data['coordinator'].name
     recepient_surname = form.cleaned_data['coordinator'].surname
