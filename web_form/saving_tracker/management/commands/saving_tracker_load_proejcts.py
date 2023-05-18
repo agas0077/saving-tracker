@@ -19,7 +19,8 @@ class Command(BaseCommand):
 
     def load_projects(self):
         '''Загружает данные в модель projects. Колонки = поля модели.'''
-        file_to_load = input('Path: ')
+        # file_to_load = input('Путь до файла: ')
+        file_to_load = r"C:\Users\Andrei.Agasiants\Downloads\Book1.xlsx"
         df = pd.read_excel(file_to_load)
         df = df.fillna('')
         list_of_projects = []
@@ -31,7 +32,7 @@ class Command(BaseCommand):
                 if column == 'owner':
                     obj, created = User.objects.get_or_create(
                         email=row[column],
-                        password='user_password',
+                        password='iohefoiawjdokwojqpd12312312312',
                     )
                 elif column == 'support_function':
                     obj, created = stm.SupportFunction.objects.get_or_create(
@@ -52,7 +53,7 @@ class Command(BaseCommand):
                 elif column == 'coordinator':
                     obj, created = User.objects.get_or_create(
                         email=row[column],
-                        password='user_password'
+                        password='iohefoiawjdokwojqpd12312312312'
                     )
                 elif column == 'group':
                     obj, created = stm.Group.objects.get_or_create(
@@ -76,7 +77,7 @@ class Command(BaseCommand):
                     )
 
                 kwargs[column] = obj
-            p = stm.Project(**kwargs, approved=True)
+            p = stm.Project(**kwargs)
             list_of_projects.append(p)
         stm.Project.objects.bulk_create(list_of_projects)
         return f'Загружено {len(list_of_projects)} проектов.'

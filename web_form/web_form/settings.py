@@ -30,12 +30,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv('DEBUG') == 'True' else False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',
-                 'saving-tracker.andrey-agas-portfolio.website']
-
-CSRF_TRUSTED_ORIGINS = ['https://*.andrey-agas-portfolio.website',
-                        'https://*.127.0.0.1']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = []
 
 AUTH_USER_MODEL = 'users.user'
 
@@ -98,8 +94,12 @@ WSGI_APPLICATION = 'web_form.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE') or 'django.db.backends.sqlite3',
+        'NAME':  os.getenv('DB_NAME') or BASE_DIR / 'db.sqlite3',
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSOWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -161,8 +161,8 @@ OPEN_URLS = [
 ]
 
 # Email params
-
-if os.getenv('SEND_EMAIL') == 'True':
+SEND_EMAIL = os.getenv('SEND_EMAIL') == 'True'
+if SEND_EMAIL:
     EMAIL_HOST = os.getenv('EMAIL_HOST')
     EMAIL_PORT = os.getenv('EMAIL_PORT')
     EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')

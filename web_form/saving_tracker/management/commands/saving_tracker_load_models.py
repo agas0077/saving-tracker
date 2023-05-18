@@ -20,7 +20,7 @@ class Command(BaseCommand):
         Колонки - названия моделей
         """
 
-        file_to_load = input('Path: ')
+        file_to_load = input('Путь до файла: ')
         df = pd.read_csv(file_to_load, delimiter=';')
         for name, model in stm.__dict__.items():
             if name in df.columns:
