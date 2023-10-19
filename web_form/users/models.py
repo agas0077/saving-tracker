@@ -1,3 +1,4 @@
+# Third Party Library
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -15,7 +16,7 @@ class CustomUserManager(BaseUserManager):
         Создает и сохранеяет объект пользователя с email и password.
         """
         if not email:
-            raise ValueError('The Email must be set')
+            raise ValueError("The Email must be set")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -26,8 +27,8 @@ class CustomUserManager(BaseUserManager):
         """
         Создает и сохранеяет объект супер-пользователя с email и password.
         """
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
         return self.create_user(email, password, **extra_fields)
 
@@ -35,22 +36,22 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """Модель пользователя"""
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     username = None
     objects = CustomUserManager()
 
-    email = models.EmailField('Email', max_length=254, unique=True)
+    email = models.EmailField("Email", max_length=254, unique=True)
 
-    name = models.CharField('Имя пользователя', max_length=100)
-    surname = models.CharField('Фамилия пользователя', max_length=100)
+    name = models.CharField("Имя пользователя", max_length=100)
+    surname = models.CharField("Фамилия пользователя", max_length=100)
 
     is_staff = models.BooleanField(
-        'Статус администратора',
+        "Статус администратора",
         default=False,
-        help_text='Определяет есть ли у пользователя досутп к адиминке.',
+        help_text="Определяет есть ли у пользователя досутп к адиминке.",
     )
     is_superuser = models.BooleanField(
-        'Статус супер-пользователя',
+        "Статус супер-пользователя",
         default=False,
     )
 
@@ -59,36 +60,37 @@ class User(AbstractBaseUser, PermissionsMixin):
         return super().save(*args, **kwargs)
 
     def _get_name_and_surname(self):
-        name_point_surname = self.email.split('@')[0]
+        name_point_surname = self.email.split("@")[0]
         try:
-            name, surname = name_point_surname.split('.')
+            name, surname = name_point_surname.split(".")
         except ValueError:
             name = name_point_surname
-            surname = 'no surname'
+            surname = "no surname"
         name = name.capitalize()
         surname = surname.capitalize()
         return (name, surname)
 
     def __str__(self):
-        if self.surname == 'no surname':
+        if self.surname == "no surname":
             return self.email
-        return f'{self.name} {self.surname}'
+        return f"{self.name} {self.surname}"
 
 
 class App(models.Model):
     """
     Моедль существующих приложений.
     """
-    title = models.CharField(
-        'Имя приложения', max_length=200)
-    description = models.TextField('Описание приложения', blank=True,
-                                   null=True)
-    app_name = models.CharField('Namespace из web_form.urls',
-                                default='users',
-                                max_length=300)
+
+    title = models.CharField("Имя приложения", max_length=200)
+    description = models.TextField(
+        "Описание приложения", blank=True, null=True
+    )
+    app_name = models.CharField(
+        "Namespace из web_form.urls", default="users", max_length=300
+    )
 
     def get_absolute_url(self):
-        return reverse(f'{self.app_name}:index')
+        return reverse(f"{self.app_name}:index")
 
     def __str__(self):
         return self.title
@@ -100,15 +102,17 @@ class UserApp(models.Model):
     доступа к приложениям.
     Содержит только уникальные записи.
     """
-    app = models.ForeignKey(App, on_delete=models.CASCADE,
-                            related_name='user_app_app')
+
+    app = models.ForeignKey(
+        App, on_delete=models.CASCADE, related_name="user_app_app"
+    )
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='user_app_user')
+        User, on_delete=models.CASCADE, related_name="user_app_user"
+    )
 
     class Meta:
         constraints = (
             models.UniqueConstraint(
-                fields=['app', 'user'],
-                name='unique_app_user'
+                fields=["app", "user"], name="unique_app_user"
             ),
         )

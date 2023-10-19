@@ -1,24 +1,23 @@
+# Third Party Library
 import pandas as pd
-
-from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
-
 import saving_tracker.models as stm
+from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 
 User = get_user_model()
 
 
 class Command(BaseCommand):
-    '''Пакетная загрузка данных в базу'''
+    """Пакетная загрузка данных в базу"""
 
     def handle(self, *args, **kwargs):
         try:
             print(self.fill_approved())
         except Exception as error:
-            raise Exception(f'Ошибка загрузки {error}')
+            raise Exception(f"Ошибка загрузки {error}")
 
     def fill_approved(self):
-        '''Заполнят колонку approved на основе условия'''
+        """Заполнят колонку approved на основе условия"""
         projects = stm.Project.objects.all()
         for project in projects:
             print(type(project.saving_potential))
@@ -27,4 +26,4 @@ class Command(BaseCommand):
             else:
                 project.approved = True
             project.save()
-        return f'Загружено {len(projects)} проектов.'
+        return f"Загружено {len(projects)} проектов."

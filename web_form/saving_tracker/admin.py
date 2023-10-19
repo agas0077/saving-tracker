@@ -1,14 +1,15 @@
-from django.contrib import admin
-
+# Third Party Library
 import saving_tracker.models as stm
+from django.contrib import admin
 
 
 class BaseAdmin(admin.ModelAdmin):
-    '''
+    """
     Устанавливает базовые параметры отображения админки
-    '''
-    list_display = ('title', 'pk')
-    empty_value_display = '-пусто-'
+    """
+
+    list_display = ("title", "pk")
+    empty_value_display = "-пусто-"
 
 
 admin.site.register(stm.SupportFunction, BaseAdmin)

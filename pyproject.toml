@@ -1,0 +1,9 @@
+[tool.black]
+line-length = 79
+include = 'web_form/.*.py'
+extend-exclude = '''
+(
+    migrations/* |
+    static/*
+)
+'''
