@@ -51,8 +51,7 @@ def _send_change_email(form):
     if not settings.SEND_EMAIL:
         return
 
-    # recepient_email = form.cleaned_data['coordinator'].email
-    recepient_email = "andrei.agasiants@unilever-rus.ru"
+    recepient_email = form.cleaned_data['coordinator'].email
 
     recepient_name = form.cleaned_data["coordinator"].name
     recepient_surname = form.cleaned_data["coordinator"].surname
