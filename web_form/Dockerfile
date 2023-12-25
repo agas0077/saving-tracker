@@ -10,4 +10,4 @@ RUN pip install -r /app/requirements.txt --no-cache-dir
 
 COPY . .
 
-CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "portfolio.wsgi" ]
+CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "web_form.wsgi" ]

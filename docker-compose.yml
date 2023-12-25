@@ -15,8 +15,7 @@ services:
       - .env
 
   saving-tracker:
-    build: web_form
-    # image: agas0077/saving-tracker:latest
+    image: agas0077/saving-tracker:latest
     env_file: .env
     depends_on:
       - db
