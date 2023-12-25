@@ -32,6 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
+    "127.0.0.1",
     "saving-tracker.andrey-agas-portfolio.website",
 ]
 CSRF_TRUSTED_ORIGINS = [
@@ -52,9 +53,18 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_tables2",
     "django_filters",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     "bootstrap3",
     "users.apps.UsersConfig",
     "saving_tracker.apps.SavingTrackerConfig",
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +73,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "web_form.middleware.login_required_middleware.LoginRequiredMiddleware",
@@ -157,12 +168,34 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Login params
+SOCIALACCOUNT_ENABLED = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+USER_MODEL_USERNAME_FIELD = "email"
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+        "APP": {
+            "client_id": os.getenv("GOOGLE_CID"),
+            "secret": os.getenv("GOOGLE_CSECRET"),
+            "key": "",
+        },
+    }
+}
 
 LOGIN_URL = "users:login"
 LOGIN_REDIRECT_URL = "users:index"
 LOGOUT_REDIRECT_URL = "users:login"
 OPEN_URLS = [
     "/login/",
+    "/accounts/",
 ]
 
 # Email params

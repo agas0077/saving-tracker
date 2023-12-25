@@ -22,6 +22,9 @@
 ###### Параметры Django
 - SECRET_KEY=some_secret_key - секретный ключ Django
 - DEBUG=True - запускам проект в режиме разработки или продакшена
+###### Параметры OAuth2.0
+- GOOGLE_CID=oauth_cid - client id из личного кабинета сервиса авторизации
+- GOOGLE_CSECRET=oauth_secret - secret из личного кабинета сервиса авторизации
 ###### Параметры отправки email, распространяются на все приложения в проекте.
 - SEND_EMAIL=True - если False, то ни одна из перечисленных ниже переменных не будут загружены в проект
 - EMAIL_HOST=smtp.yandex.abs

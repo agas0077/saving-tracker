@@ -1,12 +1,5 @@
-{% comment %} <form method="get"
-      action="{% url action_url %}"
-      class="d-flex justify-content-between mb-4">
-    {% for option in options.values %}
-        {% include 'includes/select_dropdown.html' with select_name=option.name label_text=option.label_text options=option.options current_state=option.current_state %}
-    {% endfor %} 
-</form> {% endcomment %}
 <div class="row row-cols-1 row-cols-md-4 g-3">
-    {% if not object_list %}Нет доступных приложений{% endif %}
+    {% if not object_list %}Нет доступных приложений. Обратитесь к администратору.{% endif %}
     {% for app in object_list %}
         {% include 'includes/app_card.html' %}
     {% endfor %}

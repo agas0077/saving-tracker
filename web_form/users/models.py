@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Модель пользователя"""
 
     USERNAME_FIELD = "email"
-    username = None
+    username = models.CharField("Username", max_length=100)
     objects = CustomUserManager()
 
     email = models.EmailField("Email", max_length=254, unique=True)

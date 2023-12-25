@@ -20,6 +20,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("users.urls", namespace="users")),
+    path("accounts/", include("allauth.urls")),
     path(
         "saving_tracker/",
         include("saving_tracker.urls", namespace="saving_tracker"),
