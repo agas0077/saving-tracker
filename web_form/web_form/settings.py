@@ -33,10 +33,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "saving-tracker.andrey-agas-portfolio.website",
+    "saving-tracker.andreicode.ru",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://saving-tracker.andrey-agas-portfolio.website",
+    "https://saving-tracker.andreicode.ru",
 ]
 
 AUTH_USER_MODEL = "users.user"
